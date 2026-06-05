@@ -8,8 +8,9 @@ load_dotenv()
 def get_db_connection():
     connection = pymysql.connect(
         host=os.getenv("DB_HOST", "localhost"),
+        port=int(os.getenv("DB_PORT", 3306)),  # <--- NEW: Tells Python to listen to custom ports
         user=os.getenv("DB_USER", "root"),
-        password=os.getenv("DB_PASSWORD", "your_local_password"), # Put your actual local root password here for testing
+        password=os.getenv("DB_PASSWORD", "your_local_password"),
         database=os.getenv("DB_NAME", "student_db"),
         cursorclass=pymysql.cursors.DictCursor
     )
