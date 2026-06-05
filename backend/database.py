@@ -1,18 +1,16 @@
-import os
 import pymysql
+import os
 from dotenv import load_dotenv
-load_dotenv() 
 
-DB_HOST = "localhost"
-DB_USER = "root"
-DB_PASSWORD = os.getenv("DB_PASSWORD", "")  
-DB_NAME = "student_db"
+# This loads the local .env file when you test on your laptop
+load_dotenv()
 
 def get_db_connection():
-    return pymysql.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        database=DB_NAME,
+    connection = pymysql.connect(
+        host=os.getenv("DB_HOST", "localhost"),
+        user=os.getenv("DB_USER", "root"),
+        password=os.getenv("DB_PASSWORD", "your_local_password"), # Put your actual local root password here for testing
+        database=os.getenv("DB_NAME", "student_db"),
         cursorclass=pymysql.cursors.DictCursor
     )
+    return connection

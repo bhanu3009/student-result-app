@@ -1,5 +1,7 @@
-// Point this to your FastAPI backend address
-const API_BASE_URL = "http://127.0.0.1:8000";
+// Automatically switch between your local server and your future live cloud server
+const API_BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" 
+    ? "http://127.0.0.1:8000" 
+    : "https://your-future-backend-url.onrender.com"; // We will update this exact URL later today!
 
 // ==========================================
 // 1. LOGIN PAGE LOGIC (index.html)
@@ -24,18 +26,22 @@ if (loginForm) {
             const data = await response.json();
 
             if (response.ok) {
-             // Success! Save tokens
-             localStorage.setItem("token", data.access_token);
-             localStorage.setItem("role", data.role);
-             localStorage.setItem("name", data.name);
+                // Success! Save tokens
+                localStorage.setItem("token", data.access_token);
+                localStorage.setItem("role", data.role);
+                localStorage.setItem("name", data.name);
 
-             alert("Login Successful! Welcome " + data.name);
-             if (data.role === "admin") {
-                 window.location.href = "dashboard.html"; 
-             } else {
-                 window.location.href = "student-dashboard.html";
-             }
-         }
+                alert("Login Successful! Welcome " + data.name);
+                
+                if (data.role === "admin") {
+                    window.location.href = "dashboard.html"; 
+                } else {
+                    window.location.href = "student-dashboard.html";
+                }
+            } else {
+                errorMsg.style.display = "block";
+                errorMsg.innerText = data.detail || "Invalid credentials";
+            }
         } catch (error) {
             errorMsg.style.display = "block";
             errorMsg.innerText = "Cannot connect to the server. Is FastAPI running?";
@@ -172,19 +178,33 @@ if (window.location.pathname.includes("dashboard.html") && !window.location.path
     });
 }
 
-
 // ==========================================
 // 3. STUDENT PORTAL LOGIC (student-dashboard.html)
 // ==========================================
 if (window.location.pathname.includes("student-dashboard.html")) {
     
-    // ... (Security Check and Logout logic up here) ...
+    // Security Check
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Security Alert: You must be logged in.");
+        window.location.href = "index.html"; 
+    }
+
+    // Personalize the Portal
+    const userName = localStorage.getItem("name");
+    document.getElementById("studentWelcome").innerText = "Student Portal: " + userName;
+
+    // Logout Functionality
+    document.getElementById("studentLogoutBtn").addEventListener("click", () => {
+        localStorage.clear(); 
+        window.location.href = "index.html"; 
+    });
 
     // Fetch Results Logic
     const fetchForm = document.getElementById("fetchResultsForm");
     if (fetchForm) {
         fetchForm.addEventListener("submit", async (e) => {
-            e.preventDefault(); // <--- This is the magic line that stops the '?'
+            e.preventDefault(); 
             
             const studentId = document.getElementById("myStudentId").value;
             const list = document.getElementById("myGradesList");
