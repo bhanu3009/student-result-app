@@ -94,3 +94,58 @@ hr {
     background: #ecf0f1;
     margin: 15px 0;
 }
+
+/* ========================================= */
+/* Login Page Specific Styling               */
+/* ========================================= */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.login-container h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.login-container div {
+    margin-bottom: 15px;
+    text-align: left; /* Aligns the labels to the left */
+}
+
+.login-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #34495e;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    box-sizing: border-box; /* Stops the inputs from overflowing */
+}
+
+.login-container button {
+    width: 100%;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.login-container button:hover {
+    background-color: #2980b9;
+}
