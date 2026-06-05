@@ -35,3 +35,9 @@ if winning_password is not None:
     print("Database 'student_db' has been successfully created!")
 else:
     print("\n[LOCKED OUT] None of the passwords worked. We will need to bypass the database completely.")
+
+
+
+# Email: admin@test.com
+
+# Password: mysecretpassword

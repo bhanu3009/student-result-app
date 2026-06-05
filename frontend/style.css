@@ -53,3 +53,44 @@ li {
     border-radius: 4px;
     border-left: 4px solid #3498db;
 }
+
+
+/* Form Styling */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.admin-form h4 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.admin-form input {
+    padding: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+}
+
+.admin-form button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.admin-form button:hover {
+    background-color: #2ecc71;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #ecf0f1;
+    margin: 15px 0;
+}
