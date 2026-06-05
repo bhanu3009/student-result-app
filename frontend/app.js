@@ -24,17 +24,18 @@ if (loginForm) {
             const data = await response.json();
 
             if (response.ok) {
-                // Success! Save tokens and redirect
-                localStorage.setItem("token", data.access_token);
-                localStorage.setItem("role", data.role);
-                localStorage.setItem("name", data.name);
-                
-                alert("Login Successful! Welcome " + data.name);
-                window.location.href = "dashboard.html"; 
-            } else {
-                errorMsg.style.display = "block";
-                errorMsg.innerText = data.detail || "Invalid credentials";
-            }
+             // Success! Save tokens
+             localStorage.setItem("token", data.access_token);
+             localStorage.setItem("role", data.role);
+             localStorage.setItem("name", data.name);
+
+             alert("Login Successful! Welcome " + data.name);
+             if (data.role === "admin") {
+                 window.location.href = "dashboard.html"; 
+             } else {
+                 window.location.href = "student-dashboard.html";
+             }
+         }
         } catch (error) {
             errorMsg.style.display = "block";
             errorMsg.innerText = "Cannot connect to the server. Is FastAPI running?";
@@ -45,7 +46,7 @@ if (loginForm) {
 // ==========================================
 // 2. DASHBOARD PAGE LOGIC (dashboard.html)
 // ==========================================
-if (window.location.pathname.includes("dashboard.html")) {
+if (window.location.pathname.includes("dashboard.html") && !window.location.pathname.includes("student-dashboard.html")) {
     
     // Security Check
     const token = localStorage.getItem("token");
@@ -169,4 +170,45 @@ if (window.location.pathname.includes("dashboard.html")) {
             } else { alert("Error: " + data.detail); }
         } catch (error) { alert("Server error"); }
     });
+}
+
+
+// ==========================================
+// 3. STUDENT PORTAL LOGIC (student-dashboard.html)
+// ==========================================
+if (window.location.pathname.includes("student-dashboard.html")) {
+    
+    // ... (Security Check and Logout logic up here) ...
+
+    // Fetch Results Logic
+    const fetchForm = document.getElementById("fetchResultsForm");
+    if (fetchForm) {
+        fetchForm.addEventListener("submit", async (e) => {
+            e.preventDefault(); // <--- This is the magic line that stops the '?'
+            
+            const studentId = document.getElementById("myStudentId").value;
+            const list = document.getElementById("myGradesList");
+            const displayDiv = document.getElementById("resultsDisplay");
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/results/${studentId}`);
+                const data = await response.json();
+
+                list.innerHTML = ""; // Clear old results
+                displayDiv.style.display = "block"; // Show the results box
+
+                if (data.results && data.results.length > 0) {
+                    data.results.forEach(res => {
+                        let li = document.createElement("li");
+                        li.innerHTML = `<strong>${res.subject_name}</strong>: ${res.marks} Marks ➔ <span style="color: #27ae60; font-weight: bold;">Grade ${res.grade}</span>`;
+                        list.appendChild(li);
+                    });
+                } else {
+                    list.innerHTML = "<li>No results found for this Student ID yet.</li>";
+                }
+            } catch (error) {
+                list.innerHTML = "<li style='color: red;'>Error fetching results from server.</li>";
+            }
+        });
+    }
 }

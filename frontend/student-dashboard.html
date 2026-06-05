@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar" style="background-color: #2980b9;"> <h2 id="studentWelcome">Loading Portal...</h2>
+        <button id="studentLogoutBtn" class="danger-btn">Logout</button>
+    </nav>
+
+    <main class="dashboard-container" style="justify-content: center;">
+        <section class="card" style="max-width: 600px; text-align: center;">
+            <h3>My Report Card</h3>
+            <p>Enter your Student ID to fetch your official university results.</p>
+            
+            <form id="fetchResultsForm" class="admin-form" style="margin-top: 20px;">
+                <input type="number" id="myStudentId" placeholder="Enter Student ID (e.g., 1)" required>
+                <button type="submit" style="background-color: #2980b9;">View My Results</button>
+            </form>
+
+            <hr>
+
+            <div id="resultsDisplay" style="display: none; text-align: left;">
+                <ul id="myGradesList"></ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
