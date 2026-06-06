@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="student-theme">
+    
+    <nav class="navbar">
+        <h2>🎓 Student Portal</h2>
+        <button onclick="logout()" class="btn-logout">Logout</button>
+    </nav>
+
+    <div class="dashboard-container">
+        
+        <div class="card search-card">
+            <h3>Check Your Results</h3>
+            <p>Welcome! Enter your Student ID below to fetch your latest grades from the database.</p>
+            
+            <div class="input-group">
+                <label for="studentId">Student ID:</label>
+                <input type="number" id="studentId" placeholder="e.g., 1">
+                <button onclick="viewMyResults()" class="btn-primary">View My Results</button>
+            </div>
+            
+            <p id="student-error-msg" style="color: red; display: none;"></p>
+        </div>
+
+        <div id="results-display" class="card result-card" style="display: none;">
+            <h3>Your Academic Record</h3>
+            
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Subject Name</th>
+                        <th>Marks Obtained</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody id="student-results-table-body">
+                    </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
