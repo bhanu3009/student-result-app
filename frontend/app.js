@@ -1,13 +1,9 @@
-// Automatically switch between your local server and your future live cloud server
 const API_BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" 
     ? "http://127.0.0.1:8000" 
-    : "https://student-result-app-03qw.onrender.com"; // We will update this exact URL later today!
+    : "https://student-result-app-03qw.onrender.com"; 
 
-// ==========================================
 // 1. LOGIN PAGE LOGIC (index.html)
-// ==========================================
 const loginForm = document.getElementById("loginForm");
-
 if (loginForm) {
     loginForm.addEventListener("submit", async function(event) {
         event.preventDefault(); // Stops the '?' page refresh!
@@ -48,10 +44,7 @@ if (loginForm) {
         }
     });
 }
-
-// ==========================================
 // 2. DASHBOARD PAGE LOGIC (dashboard.html)
-// ==========================================
 if (window.location.pathname.includes("dashboard.html") && !window.location.pathname.includes("student-dashboard.html")) {
     
     // Security Check
@@ -60,11 +53,9 @@ if (window.location.pathname.includes("dashboard.html") && !window.location.path
         alert("Security Alert: You must be logged in to access the dashboard.");
         window.location.href = "index.html"; 
     }
-
     // Personalize the Dashboard
     const userName = localStorage.getItem("name");
     document.getElementById("welcomeMessage").innerText = "Welcome, " + userName + "!";
-
     // Logout Functionality
     document.getElementById("logoutBtn").addEventListener("click", () => {
         localStorage.clear(); 
@@ -177,29 +168,22 @@ if (window.location.pathname.includes("dashboard.html") && !window.location.path
         } catch (error) { alert("Server error"); }
     });
 }
-
-// ==========================================
 // 3. STUDENT PORTAL LOGIC (student-dashboard.html)
-// ==========================================
 if (window.location.pathname.includes("student-dashboard.html")) {
-    
     // Security Check
     const token = localStorage.getItem("token");
     if (!token) {
         alert("Security Alert: You must be logged in.");
         window.location.href = "index.html"; 
     }
-
     // Personalize the Portal
     const userName = localStorage.getItem("name");
     document.getElementById("studentWelcome").innerText = "Student Portal: " + userName;
-
     // Logout Functionality
     document.getElementById("studentLogoutBtn").addEventListener("click", () => {
         localStorage.clear(); 
         window.location.href = "index.html"; 
     });
-
     // Fetch Results Logic
     const fetchForm = document.getElementById("fetchResultsForm");
     if (fetchForm) {
@@ -231,4 +215,4 @@ if (window.location.pathname.includes("student-dashboard.html")) {
             }
         });
     }
-}
+} 
